@@ -56,7 +56,11 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-        return Math.round((value1+value2)/2);
+    if (value1 < 10000000000 && value2 < 10000000000){ // awful
+        return (value1+value2)/2;
+    }
+    return (value1/2 + value2/2 + (((parseFloat(value1) % 2) + (parseFloat(value2) % 2)) / 2));
+    
     throw new Error('Not implemented');
 }
 
