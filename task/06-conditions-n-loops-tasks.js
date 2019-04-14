@@ -364,6 +364,16 @@ return function (number) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
+    function sumnum(num){
+        let arr = num.toString().split("");
+        let sum = arr.reduce((acc,e)=> +acc+(+e));
+        if (sum<10) return sum;
+        
+       return sumnum(sum);
+    }
+
+    return sumnum(num);
+
     throw new Error('Not implemented');
 }
 
@@ -390,7 +400,8 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    /*
+    
+    
     let openBr = {"[":"]", "(":")","<":">","{":"}"};
     let keyArr = Object.keys(openBr);
     let arr = str.split("");
@@ -399,30 +410,34 @@ function isBracketsBalanced(str) {
     if (!openBr[arr[0]]) return false;
     let check=[];
     let counter=0;
-    for (let i=0; i< arr.length; i++){        
-        if (arr[i+1]==openBr[arr[i]]){
+    for (let i=0; i< arr.length; i++){
+      //console.log(i);
+        if (arr[i+1] && arr[i+1]==openBr[arr[i]]){
+        //  console.log(i, "selfclosed");
             i++;
+          continue;
         }
-        if (arr[i+1]!=openBr[arr[i]]){
-            if (openBr[arr[i+1]]){
-                check.push(arr[i]);
-                check.push(arr[i+1]);
-                i++;
-            }
-            else{
-                if (arr[i]!=openBr[check[check.length-1]]){
-                    return false;
-                }
-                else{
-                    check.pop();
-                    
-                }
-            }
+        if (!openBr[arr[i]] && arr[i]!=openBr[check[check.length-1]]){
+          return false;
+        }
+        if (!openBr[arr[i]] && arr[i]==openBr[check[check.length-1]]){
+         // console.log(check, i, "pop check before");
+          check.pop();
+          //console.log(check, i, "pop check after");
+          continue;
+        }
+        if (arr[i+1] && arr[i+1]!=openBr[arr[i]] && openBr[arr[i+1]]){
+          check.push(arr[i]);
+          check.push(arr[i+1]);
+          i++;
+          //console.log(check, i, "push check");
         }
     }
-    return true;
-    */
+  if (check.length>0) return false;
+  return true;
+  
     throw new Error('Not implemented');
+
 }
 
 
@@ -458,7 +473,53 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let miliseconds = (endDate - startDate);
+   // console.log(seconds);
+    if (miliseconds<0) return false;
+    if (miliseconds/1000 <=45){
+      return "a few seconds ago";
+    }
+    if (miliseconds/1000 <=90){
+      return "a minute ago";
+    }
+      if (miliseconds/1000 <=60*45){
+        if ((miliseconds/1000)%60==30) miliseconds-=30;
+      return (Math.round(miliseconds/1000/60)).toString()+" minutes ago";
+    }
+        if (miliseconds/1000 <=60*90){
+      return ("an hour ago");
+    }
+        if (miliseconds/1000 <=60*60*22){
+         if ((miliseconds/1000/60)%60==30) miliseconds-=30;
+      return (Math.round(miliseconds/1000/60/60)).toString()+" hours ago";
+    }
+     if (miliseconds/1000 <=60*60*36){
+      return "a day ago";
+    }
+       if (miliseconds/1000 <=60*60*24*25){
+        if ((miliseconds/1000/60/60)%24==12) miliseconds-=12;
+      return (Math.round(miliseconds/1000/60/60/24)).toString()+" days ago";
+    }
+         if (miliseconds/1000 <=60*60*24*45){
+      return "a month ago";
+    }
+    
+      if (miliseconds/1000 <=60*60*24*345){
+
+      return (Math.round(miliseconds/1000/60/60/24/30)).toString()+" months ago";
+    }
+    
+     if (miliseconds/1000 <=60*60*24*545){
+      return "a year ago";
+    }
+    
+       if (miliseconds/1000 >=60*60*24*546){
+
+      return (Math.round(miliseconds/1000/60/60/24/364)).toString()+" years ago";
+    }
+    
+    
+      throw new Error('Not implemented');
 }
 
 
@@ -500,7 +561,18 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
+    let answ="/";
+    if (pathes.some(e=>e[0]!=answ)) return "";
+    let arr = pathes[0].split("/");
+    for (let i=1;i<arr.length-1; i++){
+      if (pathes.every(e=>e.split("/").indexOf(arr[i])>-1)){ 
+          answ+=(arr[i]+"/");  
+    }
+}
+  if (answ.length)
+    return answ;
     throw new Error('Not implemented');
+
 }
 
 
@@ -522,7 +594,20 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(m1, m2) {
+function getMatrixProduct(a, b) {
+    let aNumRows = a.length, aNumCols = a[0].length,
+    bNumRows = b.length, bNumCols = b[0].length,
+    m = new Array(aNumRows);  // initialize array of rows
+for (var r = 0; r < aNumRows; ++r) {
+  m[r] = new Array(bNumCols); // initialize the current row
+  for (var c = 0; c < bNumCols; ++c) {
+    m[r][c] = 0;             // initialize the current cell
+    for (var i = 0; i < aNumCols; ++i) {
+      m[r][c] += a[r][i] * b[i][c];
+    }
+  }
+}
+    return m;
     throw new Error('Not implemented');
 }
 
@@ -558,8 +643,49 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    /*
+    if (position.some(function(e){
+        return e.every(function(el){
+            return el=="X";
+        })
+    })){
+        return 'X';
+    }
+    if (position.some(function(e){
+        return e.every(function(el){
+            return el=="O";
+        })
+    })){
+        return 'O';
+    }
+    */
+   if (position[0][0] == 'X' && position [1][0] == 'X' && position[2][0]== 'X' || 
+   position[0][1] == 'X' && position [1][1] == 'X' && position[2][1]== 'X' ||
+   position[0][2] == 'X' && position [1][2] == 'X' && position[2][2]== 'X' ||
+   position[0][0] == 'X' && position [1][1] == 'X' && position[2][2]== 'X' ||
+   position[0][2] == 'X' && position [1][1] == 'X' && position[2][0]== 'X' ||
+   position[0][0] == 'X' && position [0][1] == 'X' && position[0][2]== 'X' ||
+   position[1][0] == 'X' && position [1][1] == 'X' && position[1][2]== 'X' ||
+   position[2][0] == 'X' && position [2][1] == 'X' && position[2][2]== 'X' 
+   ){
+       return 'X';
+   }
+
+   if (position[0][0] == 'O' && position [1][0] == 'O' && position[2][0]== 'O' ||
+   position[0][1] == 'O' && position [1][1] == 'O' && position[2][1]== 'O' ||
+   position[0][2] == 'O' && position [1][2] == 'O' && position[2][2]== 'O' ||
+   position[0][0] == 'O' && position [1][1] == 'O' && position[2][2]== 'O' ||
+   position[0][2] == 'O' && position [1][1] == 'O' && position[2][0]== 'O' ||
+   position[0][0] == 'O' && position [0][1] == 'O' && position[0][2]== 'O' ||
+   position[1][0] == 'O' && position [1][1] == 'O' && position[1][2]== 'O' ||
+   position[2][0] == 'O' && position [2][1] == 'O' && position[2][2]== 'O' 
+   ){
+       return 'O';
+   }
+   return undefined;
+   throw new Error('Not implemented');
 }
+
 
 
 module.exports = {
