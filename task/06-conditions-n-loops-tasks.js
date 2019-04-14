@@ -671,16 +671,16 @@ function evaluateTicTacToePosition(position) {
        return 'X';
    }
 
-   if (position[0][0] == 'O' && position [1][0] == 'O' && position[2][0]== 'O' ||
-   position[0][1] == 'O' && position [1][1] == 'O' && position[2][1]== 'O' ||
-   position[0][2] == 'O' && position [1][2] == 'O' && position[2][2]== 'O' ||
-   position[0][0] == 'O' && position [1][1] == 'O' && position[2][2]== 'O' ||
-   position[0][2] == 'O' && position [1][1] == 'O' && position[2][0]== 'O' ||
-   position[0][0] == 'O' && position [0][1] == 'O' && position[0][2]== 'O' ||
-   position[1][0] == 'O' && position [1][1] == 'O' && position[1][2]== 'O' ||
-   position[2][0] == 'O' && position [2][1] == 'O' && position[2][2]== 'O' 
+   if (position[0][0] == '0' && position [1][0] == '0' && position[2][0]== '0' ||
+   position[0][1] == '0' && position [1][1] == '0' && position[2][1]== '0' ||
+   position[0][2] == '0' && position [1][2] == '0' && position[2][2]== '0' ||
+   position[0][0] == '0' && position [1][1] == '0' && position[2][2]== '0' ||
+   position[0][2] == '0' && position [1][1] == '0' && position[2][0]== '0' ||
+   position[0][0] == '0' && position [0][1] == '0' && position[0][2]== '0' ||
+   position[1][0] == '0' && position [1][1] == '0' && position[1][2]== '0' ||
+   position[2][0] == '0' && position [2][1] == '0' && position[2][2]== '0' 
    ){
-       return 'O';
+       return '0';
    }
    return undefined;
    throw new Error('Not implemented');
