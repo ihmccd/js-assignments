@@ -31,6 +31,8 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
+   let reg = /(\{([\w\-\.]+[\-\.][\w\-\.]+)\})/g;
+   return reg;
    throw new Error('Not implemented');
 }
 
