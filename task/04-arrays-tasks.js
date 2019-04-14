@@ -669,6 +669,22 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
+   let obj={};
+   array.map(function(e){
+     if (!obj[keySelector(e)]){
+       obj[keySelector(e)] = []; 
+     }
+     obj[keySelector(e)].push(valueSelector(e));
+     //obj[keySelector(e)].sort();
+    
+    //console.log(obj);
+       return e;    
+             })
+             const map = new Map(Object.entries(obj));
+             return map;
+
+   //return Object.keys(obj).reduce((map, key) => map.set(key, obj[key]), new Map());
+ 
    throw new Error('Not implemented');
 }
 
